@@ -67,8 +67,17 @@ namespace BookStore.MVC.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
+            var publishersModel = (await m_publisherService.GetAll())
+            .Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            ViewBag.PublishersList = publishersModel;
+
             var model = m_bookService.GetById(id);
             return View(model);
         }

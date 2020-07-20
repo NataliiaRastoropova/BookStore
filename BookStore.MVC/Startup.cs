@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.DB;
+using BookStore.MVC.Filters;
 using BookStore.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,10 @@ namespace BookStore.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options => { });
+            services.AddMvc(options => 
+            {
+                options.Filters.Add(typeof(GeneralFilter));
+            });
             services.AddControllersWithViews();
             services.AddDateBase(Configuration.GetConnectionString("BookStoreConnection"));
             services.AddMapper();
