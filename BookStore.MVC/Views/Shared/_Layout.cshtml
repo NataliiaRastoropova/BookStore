@@ -50,8 +50,22 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @*@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")*@
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+          rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css"
+        rel="stylesheet" type="text/css" />*@
 
-    @RenderSection("Scripts", required: false)
-</body>
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>*@
+
+        <script type="text/javascript">
+            $(function () {
+                $('#Authors').multiselect({
+                    includeSelectAllOption: true
+                });
+            });
+        </script>
+
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>

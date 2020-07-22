@@ -24,8 +24,12 @@ namespace BookStore.Shared.Automapper
                 .ForMember(b => b.BookAuthors, opt => opt.MapFrom(bc => bc.AuthorsId.Select(ba => new BookAuthor(null, ba)).ToArray()));
             CreateMap<BookEditModel, Book>()
                 .ForMember(b => b.BookAuthors, opt => opt.MapFrom(bc => bc.AuthorsId.Select(ba => new BookAuthor(null, ba)).ToArray()));
+            CreateMap<Book, BookEditModel>()
+                .ForMember(be => be.AuthorsId, opt => opt.MapFrom(b => b.BookAuthors.Select(ba => ba.AuthorId).ToArray()));
+
             CreateMap<Book, BookViewModel>()
-                .ForMember(bv => bv.Authors, opt => opt.MapFrom(b => b.BookAuthors.Select(ba => $"{ba.Author.LastName[0]}. {ba.Author.FirstName}").ToArray()));
+                .ForMember(bv => bv.Authors, opt => opt.MapFrom(b => b.BookAuthors.Select(ba => $"{ba.Author.LastName[0]}. {ba.Author.FirstName}").ToArray()))
+                .ForMember(bv => bv.Publisher, opt => opt.MapFrom(b =>b.Publisher.Name));
 
             // publisher
             CreateMap<Publisher, PublisherViewModel>();

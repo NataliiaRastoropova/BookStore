@@ -22,7 +22,9 @@ namespace BookStore.Shared.Dto.Book
         [Display(Name = "Publish Date")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PublishDate { get; set; }
+        [Display(Name = "Publisher")]
         public int PublisherId { get; set; }
+        [Display(Name = "Authors")]
         public int[] AuthorsId { get; set; }
     }
 }

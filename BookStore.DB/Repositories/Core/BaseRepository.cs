@@ -66,7 +66,8 @@ namespace BookStore.DB.Repositories.Core
 
         public async Task<TE> GetById(int id)
         {
-            return await this.m_context.Set<TE>().FirstOrDefaultAsync(e => e.Id == id);
+            return await this.m_context.Set<TE>()
+                    .FirstOrDefaultAsync(e => e.Id == id);
         }
     }
 }
