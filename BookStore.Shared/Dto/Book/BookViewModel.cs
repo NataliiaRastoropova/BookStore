@@ -16,7 +16,9 @@ namespace BookStore.Shared.Dto.Book
         public int PageNumbers { get; set; }
         [Display(Name = "PublishDate")]
         public DateTime PublishDate { get; set; }
+        [Display(Name = "Publisher")]
         public string Publisher { get; set; }
+        [Display(Name = "Authors")]
         public string[] Authors { get; set; }
     }
 }

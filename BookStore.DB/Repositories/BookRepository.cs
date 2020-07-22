@@ -28,5 +28,24 @@ namespace BookStore.DB.Repositories
                           where author.Id == id
                           select book).ToListAsync();
         }
+
+        public new async Task<IReadOnlyCollection<Book>> GetAll()
+        {
+            return await this.m_context
+                .Set<Book>()
+                .Include(b => b.BookAuthors)
+                .ThenInclude(ba => ba.Author)
+                .Include(b => b.Publisher)
+                .ToListAsync();
+        }
+
+        public new async Task<Book> GetById(int id)
+        {
+            return await m_context.Set<Book>()
+                .Include(b => b.BookAuthors)
+                .ThenInclude(ba => ba.Author)
+                .Include(b => b.Publisher)
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
     }
 }

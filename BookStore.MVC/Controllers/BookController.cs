@@ -8,6 +8,7 @@ using BookStore.Shared.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace BookStore.MVC.Controllers
 {
@@ -15,11 +16,13 @@ namespace BookStore.MVC.Controllers
     {
         private readonly BookService m_bookService;
         private readonly PublisherService m_publisherService;
+        public readonly AuthorService m_authorService;
 
-        public BookController(BookService bookService, PublisherService publisherService)
+        public BookController(BookService bookService, PublisherService publisherService, AuthorService authorService)
         {
             m_bookService = bookService;
             m_publisherService = publisherService;
+            m_authorService = authorService;
         }
 
         [HttpGet]
@@ -39,14 +42,22 @@ namespace BookStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = (await m_publisherService.GetAll())
-                        .Select(x => new SelectListItem
-                        {
-                            Text = x.Name,
-                            Value = x.Id.ToString()
-                        }).ToList();
-          
-            ViewBag.PublishersList = model;
+            var publishers = (await m_publisherService.GetAll())
+                                .Select(p => new SelectListItem
+                                {
+                                    Text = p.Name,
+                                    Value = p.Id.ToString()
+                                }).ToList();
+
+            var authors = (await m_authorService.GetAll())
+                                .Select(a => new SelectListItem
+                                {
+                                    Text = a.FullName,
+                                    Value = a.Id.ToString()
+                                }).ToList();
+
+            ViewBag.PublishersList = publishers;
+            ViewBag.AuthorsList = authors;
             return View();
         }
         
@@ -67,9 +78,26 @@ namespace BookStore.MVC.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = m_bookService.GetById(id);
+            var publishers = (await m_publisherService.GetAll())
+                                .Select(p => new SelectListItem
+                                {
+                                    Text = p.Name,
+                                    Value = p.Id.ToString()
+                                }).ToList();
+
+            var authors = (await m_authorService.GetAll())
+                                .Select(a => new SelectListItem
+                                {
+                                    Text = a.FullName,
+                                    Value = a.Id.ToString()
+                                }).ToList();
+
+            ViewBag.PublishersList = publishers;
+            ViewBag.AuthorsList = authors;
+
+            var model = await m_bookService.GetById(id);
             return View(model);
         }
 

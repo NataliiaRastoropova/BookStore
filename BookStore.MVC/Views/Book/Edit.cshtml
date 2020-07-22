@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var listpublishers = (ViewBag.PublishersList as List<SelectListItem>);
+    if (listpublishers == null)
+    { listpublishers = new List<SelectListItem>(); }
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -17,7 +20,7 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <select asp-for="Genre" asp-items="Html.GetEnumSelectList<BookStore.DB.Domain.Genre>()" class="form-control selectpicker" select>
+                <select asp-for="Genre" asp-items="Html.GetEnumSelectList<BookStore.DB.Domain.Genre>()" class="form-control" select>
                     <option selected="selected" value="">Please select genre</option>
                 </select>
             </div>
@@ -45,6 +48,16 @@
                 <label asp-for="PublishDate" class="control-label"></label>
                 <input asp-for="PublishDate" class="form-control" />
                 <span asp-validation-for="PublishDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AuthorsId" class="control-label"></label>
+                <select multiple="multiple" id="Authors" asp-for="AuthorsId" asp-items="(List<SelectListItem>)ViewBag.AuthorsList"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PublisherId" class="control-label"></label>
+                @Html.DropDownListFor(model => model.PublisherId, listpublishers, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

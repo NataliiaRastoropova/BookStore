@@ -22,8 +22,8 @@ namespace BookStore.Shared.Services
 
         public async Task<IEnumerable<BookViewModel>> GetAll()
         {
-            return (await m_repository.GetAll())
-                .Select(m => m_automapper.Map<BookViewModel>(m));
+            var model = await m_repository.GetAll();
+            return  model.Select(m => m_automapper.Map<BookViewModel>(m));
         }
 
         public async Task Create(BookCreateModel model)
