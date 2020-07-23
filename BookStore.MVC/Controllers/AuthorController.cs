@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BookStore.Shared.Dto.Author;
 using BookStore.Shared.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.MVC.Controllers
@@ -20,27 +16,17 @@ namespace BookStore.MVC.Controllers
             m_bookService = bookService;
         }
 
-        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = await m_authorService.GetAll();
             return View(model);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetBooksList(int id)
         {
-            try
-            {
-                var model = await m_bookService.GetByPublisher(id);
-                return View(model);
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return RedirectToAction("Index", "Home");
-            }
+            var model = await m_bookService.GetByPublisher(id);
+            return View(model);
         }
 
         [HttpGet]
@@ -53,54 +39,29 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AuthorCreateModel collection)
         {
-            try
-            {
-                await m_authorService.Create(collection);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_authorService.Create(collection);
+            return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await m_authorService.GetById(id);
             return View(model);
         }
 
-        //[HttpPut]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(AuthorEditModel collection)
         {
-            try
-            {
-                await m_authorService.Update(collection);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-
-                return View();
-            }
+            await m_authorService.Update(collection);
+            return RedirectToAction(nameof(Index));
         }
 
-        //[HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                await m_authorService.Delete(id);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_authorService.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

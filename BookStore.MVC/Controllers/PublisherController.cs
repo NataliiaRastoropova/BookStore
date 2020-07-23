@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BookStore.Shared.Dto.Publisher;
 using BookStore.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,31 +19,15 @@ namespace BookStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            try
-            {
-                var model = await m_publisherService.GetAll();
-                return View(model);
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return RedirectToAction("Index", "Home");
-            }
+            var model = await m_publisherService.GetAll();
+            return View(model);
         }
 
         [HttpGet] //todo: move to BooksController
         public async Task<IActionResult> GetBooksList(int id)
         {
-            try
-            {
-                var model = await m_bookService.GetByPublisher(id);
-                return View(model);
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return RedirectToAction("Index", "Home");
-            }
+            var model = await m_bookService.GetByPublisher(id);
+            return View(model);
         }
 
         [HttpGet]
@@ -59,16 +40,8 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PublisherCreateModel collection)
         {
-            try
-            {
-                await m_publisherService.Create(collection);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_publisherService.Create(collection);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -80,33 +53,17 @@ namespace BookStore.MVC.Controllers
         [HttpPost]
         // [httpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( PublisherEditModel collection)
+        public async Task<IActionResult> Edit(PublisherEditModel collection)
         {
-            try
-            {
-                await m_publisherService.Update(collection);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_publisherService.Update(collection);
+            return RedirectToAction(nameof(Index));
         }
 
-       //[HttpDelete]
+        //[HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                await m_publisherService.Delete(id);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_publisherService.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

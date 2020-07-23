@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using BookStore.MVC.Models;
 using BookStore.Shared.Dto.Book;
 using BookStore.Shared.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp;
 
 namespace BookStore.MVC.Controllers
 {
@@ -28,17 +23,10 @@ namespace BookStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            try
-            {
-                var model = await m_bookService.GetAll();
-                return View(model);
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return RedirectToAction("Index", "Home");
-            }
+            var model = await m_bookService.GetAll();
+            return View(model);
         }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -60,22 +48,13 @@ namespace BookStore.MVC.Controllers
             ViewBag.AuthorsList = authors;
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookCreateModel collection)
         {
-            try
-            {
-                await m_bookService.Create(collection);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // add error view ViewBag[]
-                var error = ex.Message;
-                return View();
-            }
+            await m_bookService.Create(collection);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -106,31 +85,15 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BookEditModel collection)
         {
-            try
-            {
-                await m_bookService.Update(collection);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_bookService.Update(collection);
+            return RedirectToAction(nameof(Index));
         }
 
         //[HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                await m_bookService.Delete(id);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // add error view ViewBag[]
-                return View();
-            }
+            await m_bookService.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
