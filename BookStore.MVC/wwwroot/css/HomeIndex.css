@@ -1,0 +1,18 @@
+﻿#header {
+    font-family: "Copperplate Gothic Light", serif;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px 0;
+    margin-top: 1%;
+}
+
+#imagerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 4%;
+}
+
+#item{
+    width:150px;
+}
