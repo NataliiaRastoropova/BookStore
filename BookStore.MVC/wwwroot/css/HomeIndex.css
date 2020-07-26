@@ -9,10 +9,55 @@
 #imagerContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 4%;
+    justify-content: space-start;
+    margin: 2%;
 }
 
 #item{
     width:150px;
+}
+
+.quote {
+    display: inline-block;
+    margin: 5%;
+    overflow: hidden;
+    font-family: Apple Chancery, cursive, sans-serif;
+    font-size: larger;
+    color: rgba(117, 117, 117, 1);
+    font-weight: 500;
+}
+
+.quote blockquote {
+    background-color: #fff;
+    border: solid 2px #757575;
+    display: inline-block;
+    margin: 0;
+    padding: 1em;
+    position: relative;
+}
+
+.quote blockquote:before {
+    background-color: #fff;
+    bottom: -10%;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -10%;
+    transform: rotate(-19deg) skew(15deg);
+}
+
+.quote blockquote > * {
+    position: relative;
+    z-index: 1;
+}
+
+cite {
+    display: block;
+    font-style: italic;
+    text-align: right;
+}
+
+cite:before{
+    content: "- ";
 }

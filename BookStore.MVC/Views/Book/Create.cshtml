@@ -50,16 +50,9 @@
                 <span asp-validation-for="PublishDate" class="text-danger"></span>
             </div>
 
-            @*<div class="form-group">
+            <div class="form-group">
             <label asp-for="AuthorsId" class="control-label"></label>
             <select multiple="multiple" style="width: 15000px;" class="form-control" id="Authors" asp-for="AuthorsId" asp-items="(List<SelectListItem>)ViewBag.AuthorsList"></select>
-        </div>*@
-
-        <div class="form-group">
-            <label asp-for="AuthorsId" class="control-label"></label>
-            <select asp-for="AuthorsId" asp-items="(List<SelectListItem>)ViewBag.AuthorsList">
-            <option>Please select one</option>
-                </select>
         </div>
 
             <div class="form-group">
