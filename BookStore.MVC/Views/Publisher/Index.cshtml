@@ -37,8 +37,8 @@
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
+                @Html.ActionLink("Books", "BooksList", new { id = item.Id }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id, collection = item }) |
-                @Html.ActionLink("Books", "GetBooksList", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>

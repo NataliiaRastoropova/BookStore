@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BookStore.Shared.Dto.Book;
 using BookStore.Shared.Services;
@@ -23,9 +24,29 @@ namespace BookStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await m_bookService.GetAll();
-            return View(model);
+            try
+            {
+                var model = await m_bookService.GetAll();
+                return View(model);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> BooksList(IEnumerable<BookViewModel> model)
+        //{
+        //    try
+        //    {
+        //        return View(model);
+        //    }
+        //    catch
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -53,8 +74,14 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookCreateModel collection)
         {
-            await m_bookService.Create(collection);
-            return RedirectToAction(nameof(Index));
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            if (ModelState.IsValid)
+            {
+                await m_bookService.Create(collection);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View(collection);
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -85,15 +112,27 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BookEditModel collection)
         {
-            await m_bookService.Update(collection);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await m_bookService.Update(collection);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View(collection);
         }
 
         //[HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            await m_bookService.Delete(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await m_bookService.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

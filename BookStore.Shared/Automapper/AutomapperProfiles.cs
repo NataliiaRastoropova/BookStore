@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using AutoMapper;
 using BookStore.DB.Domain;
 using BookStore.Shared.Dto.Author;
@@ -18,6 +16,7 @@ namespace BookStore.Shared.Automapper
                 .ForMember(_ => _.FullName, opt => opt.MapFrom(_ => $"{_.LastName[0]}. {_.FirstName}"));
             CreateMap<AuthorCreateModel, Author>();
             CreateMap<AuthorEditModel, Author>();
+            CreateMap<Author, AuthorEditModel>();
 
             // book
             CreateMap<BookCreateModel, Book>()
@@ -35,6 +34,7 @@ namespace BookStore.Shared.Automapper
             CreateMap<Publisher, PublisherViewModel>();
             CreateMap<PublisherCreateModel, Publisher>();
             CreateMap<PublisherEditModel, Publisher>();
+            CreateMap<Publisher, PublisherEditModel>();
         }
     }
 }

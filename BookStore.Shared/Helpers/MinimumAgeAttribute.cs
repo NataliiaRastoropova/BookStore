@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace BookStore.Shared.Helpers
 {
@@ -12,7 +10,7 @@ namespace BookStore.Shared.Helpers
         public MinimumAgeAttribute(int minimumAge)
         {
             _minimumAge = minimumAge;
-            ErrorMessage = "{0} must be someone at least {1} years of age";
+            ErrorMessage = "You must be someone at least {1} years of age";
         }
 
         public override bool IsValid(object value)

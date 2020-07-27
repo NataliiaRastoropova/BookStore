@@ -12,9 +12,9 @@ namespace BookStore.Shared.Dto.Book
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public decimal Price { get; set; }
-        [Display(Name = "Page Numbers")]
+        [Display(Name = "Page numbers")]
         public int PageNumbers { get; set; }
-        [Display(Name = "PublishDate")]
+        [Display(Name = "Publish date")]
         public DateTime PublishDate { get; set; }
         [Display(Name = "Publisher")]
         public string Publisher { get; set; }

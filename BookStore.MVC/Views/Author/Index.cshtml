@@ -28,10 +28,10 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Birthday)
+                @Html.DisplayFor(modelItem => item.Birthday, new { @Value = Convert.ToString(item.Birthday.ToShortDateString()) }) 
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id, collection = item }) |
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id}) |
                 @Html.ActionLink("BooksList", "GetBooksList", new {  id=item.Id  }) |
                 @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
             </td>

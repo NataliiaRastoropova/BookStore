@@ -25,8 +25,15 @@ namespace BookStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooksList(int id)
         {
-            var model = await m_bookService.GetByPublisher(id);
-            return View(model);
+            try
+            {
+                var model = await m_bookService.GetByPublisher(id);
+                return View(model);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpGet]
@@ -39,8 +46,13 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AuthorCreateModel collection)
         {
-            await m_authorService.Create(collection);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await m_authorService.Create(collection);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View(collection);
         }
 
         [HttpGet]
@@ -54,14 +66,26 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(AuthorEditModel collection)
         {
-            await m_authorService.Update(collection);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            { 
+                await m_authorService.Update(collection);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View(collection);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            await m_authorService.Delete(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await m_authorService.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

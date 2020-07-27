@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<BookStore.Shared.Dto.Book.BookViewModel>
 
 @{
-    ViewData["Title"] = "Books";
+    ViewData["Title"] = "BooksList";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,15 +28,11 @@
                 @Html.DisplayNameFor(model => model.PageNumbers)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublishDate, new { @Value = Convert.ToString(item.Birthday.ToShortDateString()) })
+                @Html.DisplayNameFor(model => model.PublishDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Publisher)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Authors)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -64,17 +57,10 @@
                 @Html.DisplayFor(modelItem => item.PageNumbers)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublishDate.ToString("dd/MM/yyyy"))
+                @Html.DisplayFor(modelItem => item.PublishDate, new { @Value = Convert.ToString(item.Birthday.ToShortDateString()) })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Publisher)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Authors)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

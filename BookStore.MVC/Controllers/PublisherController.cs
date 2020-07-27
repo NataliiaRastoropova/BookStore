@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BookStore.Shared.Dto.Publisher;
 using BookStore.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +13,8 @@ namespace BookStore.MVC.Controllers
 
         public PublisherController(PublisherService publisherService, BookService bookService)
         {
-                m_publisherService = publisherService;
-                m_bookService = bookService;
+            m_publisherService = publisherService;
+            m_bookService = bookService;
         }
 
         [HttpGet]
@@ -24,10 +25,19 @@ namespace BookStore.MVC.Controllers
         }
 
         [HttpGet] //todo: move to BooksController
-        public async Task<IActionResult> GetBooksList(int id)
+        public async Task<IActionResult> BooksList(int id)
         {
-            var model = await m_bookService.GetByPublisher(id);
-            return View(model);
+            try
+            {
+                var model = await m_bookService.GetByPublisher(id);
+                return View(model);
+                //return RedirectToAction("BooksList", "Book", model);
+            }
+            catch(Exception ex)
+            {
+                var w = ex.ToString();
+                return View();
+            }
         }
 
         [HttpGet]
@@ -40,8 +50,13 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PublisherCreateModel collection)
         {
-            await m_publisherService.Create(collection);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await m_publisherService.Create(collection);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View(collection);
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -55,15 +70,27 @@ namespace BookStore.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(PublisherEditModel collection)
         {
-            await m_publisherService.Update(collection);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await m_publisherService.Update(collection);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View(collection);
         }
 
         //[HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            await m_publisherService.Delete(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await m_publisherService.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }
