@@ -22,7 +22,7 @@ namespace BookStore.Shared.Automapper
             CreateMap<BookCreateModel, Book>()
                 .ForMember(b => b.BookAuthors, opt => opt.MapFrom(bc => bc.AuthorsId.Select(ba => new BookAuthor(null, ba)).ToArray()));
             CreateMap<BookEditModel, Book>()
-                .ForMember(b => b.BookAuthors, opt => opt.MapFrom(bc => bc.AuthorsId.Select(ba => new BookAuthor(null, ba)).ToArray()));
+                .ForMember(b => b.BookAuthors, opt => opt.MapFrom(bc => bc.AuthorsId.Select(ba => new BookAuthor(bc.Id, ba)).ToArray()));
             CreateMap<Book, BookEditModel>()
                 .ForMember(be => be.AuthorsId, opt => opt.MapFrom(b => b.BookAuthors.Select(ba => ba.AuthorId).ToArray()));
 

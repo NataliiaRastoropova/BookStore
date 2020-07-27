@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.PageNumbers)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublishDate, new { @Value = Convert.ToString(item.Birthday.ToShortDateString()) })
+                @Html.DisplayNameFor(model => model.PublishDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Publisher)
@@ -64,7 +64,7 @@
                 @Html.DisplayFor(modelItem => item.PageNumbers)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublishDate.ToString("dd/MM/yyyy"))
+                @Html.DisplayFor(modelItem => item.PublishDate, new { @Value = Convert.ToString(item.PublishDate.ToShortDateString()) })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Publisher)

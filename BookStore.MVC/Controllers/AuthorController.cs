@@ -59,6 +59,7 @@ namespace BookStore.MVC.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var model = await m_authorService.GetById(id);
+            model.Birthday = model.Birthday.Date;
             return View(model);
         }
 

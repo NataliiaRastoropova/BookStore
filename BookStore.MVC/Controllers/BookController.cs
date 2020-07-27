@@ -51,22 +51,9 @@ namespace BookStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var publishers = (await m_publisherService.GetAll())
-                                .Select(p => new SelectListItem
-                                {
-                                    Text = p.Name,
-                                    Value = p.Id.ToString()
-                                }).ToList();
+            ViewBag.PublishersList = await GetPublishersSelectList();
+            ViewBag.AuthorsList = await GetAuthorsSelectList();
 
-            var authors = (await m_authorService.GetAll())
-                                .Select(a => new SelectListItem
-                                {
-                                    Text = a.FullName,
-                                    Value = a.Id.ToString()
-                                }).ToList();
-
-            ViewBag.PublishersList = publishers;
-            ViewBag.AuthorsList = authors;
             return View();
         }
 
@@ -81,27 +68,18 @@ namespace BookStore.MVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else
+            {
+                ViewBag.PublishersList = await GetPublishersSelectList();
+                ViewBag.AuthorsList = await GetAuthorsSelectList();
+
                 return View(collection);
+            }
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var publishers = (await m_publisherService.GetAll())
-                                .Select(p => new SelectListItem
-                                {
-                                    Text = p.Name,
-                                    Value = p.Id.ToString()
-                                }).ToList();
-
-            var authors = (await m_authorService.GetAll())
-                                .Select(a => new SelectListItem
-                                {
-                                    Text = a.FullName,
-                                    Value = a.Id.ToString()
-                                }).ToList();
-
-            ViewBag.PublishersList = publishers;
-            ViewBag.AuthorsList = authors;
+            ViewBag.PublishersList = await GetPublishersSelectList();
+            ViewBag.AuthorsList = await GetAuthorsSelectList();
 
             var model = await m_bookService.GetById(id);
             return View(model);
@@ -118,7 +96,11 @@ namespace BookStore.MVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else
+            {
+                ViewBag.PublishersList = await GetPublishersSelectList();
+                ViewBag.AuthorsList = await GetAuthorsSelectList();
                 return View(collection);
+            }
         }
 
         //[HttpDelete]
@@ -133,6 +115,29 @@ namespace BookStore.MVC.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        private async Task<List<SelectListItem>> GetPublishersSelectList()
+        {
+            var publishers = (await m_publisherService.GetAll())
+                                .Select(p => new SelectListItem
+                                {
+                                    Text = p.Name,
+                                    Value = p.Id.ToString()
+                                }).ToList();
+
+            return publishers;
+        }
+
+        private async Task<List<SelectListItem>> GetAuthorsSelectList()
+        {
+            var authors = (await m_authorService.GetAll())
+                                .Select(a => new SelectListItem
+                                {
+                                    Text = a.FullName,
+                                    Value = a.Id.ToString()
+                                }).ToList();
+            return authors;
         }
     }
 }

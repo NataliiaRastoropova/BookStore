@@ -19,12 +19,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <input asp-for="PhoneNumber" type="tel" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Birthday" class="control-label"></label>
-                <input asp-for="Birthday" asp-format="{0:dd/MM/yyyy}" class="form-control" />
+                <input asp-for="Birthday" value="@Model.Birthday.ToString("yyyy-MM-dd")" class="form-control" />
+                @*<input asp-for="Birthday" type="datetime-local" asp-format="{0:dd/MM/yyyy}" class="form-control" />*@
+                @*<input asp-for="Birthday" asp-format="{0:dd/MM/yyyy}" class="form-control" />*@
+                @*@Html.TextBoxFor(model => model.Birthday, "{0:dd.MM.yyyy}", new { @class = "form-control datepicker" })*@
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
