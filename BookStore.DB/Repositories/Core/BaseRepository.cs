@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BookStore.DB.Domain;
-using BookStore.DB.Extensions;
 
 namespace BookStore.DB.Repositories.Core
 {
@@ -41,17 +40,6 @@ namespace BookStore.DB.Repositories.Core
             m_context.Update(entity);
             await m_context.SaveChangesAsync();
         }
-
-        //public async Task Save(TE entity)
-        //{
-        //    if (entity == null)
-        //    {
-        //        throw new ArgumentNullException("entity");
-        //    }
-
-        //    await m_context.AddOrUpdateAsync(entity);
-        //    await m_context.SaveChangesAsync();
-        //}
 
         public async Task Delete(int id)
         {

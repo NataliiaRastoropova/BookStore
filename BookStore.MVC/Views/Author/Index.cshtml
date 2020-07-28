@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Birthday, new { @Value = Convert.ToString(item.Birthday.ToShortDateString()) }) 
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id}) |
-                @Html.ActionLink("BooksList", "GetBooksList", new {  id=item.Id  }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                @Html.ActionLink("Books", "BooksList", new { id = item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

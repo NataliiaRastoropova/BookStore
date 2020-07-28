@@ -24,18 +24,17 @@ namespace BookStore.MVC.Controllers
             return View(model);
         }
 
-        [HttpGet] //todo: move to BooksController
+        [HttpGet] 
         public async Task<IActionResult> BooksList(int id)
         {
             try
             {
                 var model = await m_bookService.GetByPublisher(id);
+                ViewBag.PublisherName = await m_publisherService.GetPublisherName(id);
                 return View(model);
-                //return RedirectToAction("BooksList", "Book", model);
             }
-            catch(Exception ex)
+            catch
             {
-                var w = ex.ToString();
                 return View();
             }
         }

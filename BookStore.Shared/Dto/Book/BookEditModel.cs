@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using BookStore.DB.Domain;
 
 namespace BookStore.Shared.Dto.Book
 {
@@ -11,7 +10,7 @@ namespace BookStore.Shared.Dto.Book
         [StringLength(100, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 2)]
         public string Title { get; set; }
         [Required(ErrorMessage = "Genre required!")]
-        public string Genre { get; set; }
+        public byte Genre { get; set; }
         public string Description { get; set; }
         [Display(Name = "Image")]
         public string ImagePath { get; set; }

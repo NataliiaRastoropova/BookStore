@@ -11,5 +11,6 @@ namespace BookStore.DB.Repositories
         Task Delete(int id);
         Task<IReadOnlyCollection<Author>> GetAll();
         Task<Author> GetById(int id);
+        Task<string> GetAuthorName(int id);
     }
 }

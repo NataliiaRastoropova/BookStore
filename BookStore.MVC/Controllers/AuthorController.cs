@@ -23,16 +23,17 @@ namespace BookStore.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBooksList(int id)
+        public async Task<IActionResult> BooksList(int id)
         {
             try
             {
-                var model = await m_bookService.GetByPublisher(id);
+                var model = await m_bookService.GetByAuthor(id);
+                ViewBag.AuthorName = await m_authorService.GetAuthorName(id);
                 return View(model);
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return View();
             }
         }
 

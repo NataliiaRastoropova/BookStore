@@ -1,6 +1,4 @@
-﻿using BookStore.DB.Domain;
-using BookStore.DB.Repositories;
-using BookStore.DB.Repositories.Core;
+﻿using BookStore.DB.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

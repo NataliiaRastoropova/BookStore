@@ -22,7 +22,7 @@ namespace BookStore.Shared.Dto.Author
         public string PhoneNumber { get; set; }
 
         [MinimumAge(18)]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd.mm.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BookStore.DB.Domain;
 using BookStore.DB.Repositories.Core;
-using System;
 
 namespace BookStore.DB.Repositories
 {

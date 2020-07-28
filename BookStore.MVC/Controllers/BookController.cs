@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore.DB.Domain;
 using BookStore.Shared.Dto.Book;
 using BookStore.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -34,19 +36,6 @@ namespace BookStore.MVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> BooksList(IEnumerable<BookViewModel> model)
-        //{
-        //    try
-        //    {
-        //        return View(model);
-        //    }
-        //    catch
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
 
         [HttpGet]
         public async Task<IActionResult> Create()

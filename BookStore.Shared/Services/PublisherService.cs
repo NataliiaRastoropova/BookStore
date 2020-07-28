@@ -47,5 +47,10 @@ namespace BookStore.Shared.Services
             var model = await m_repository.GetById(id);
             return m_automapper.Map<PublisherEditModel>(model);
         }
+
+        public async Task<string> GetPublisherName(int id)
+        {
+            return await m_repository.GetPublisherName(id);
+        }
     }
 }
